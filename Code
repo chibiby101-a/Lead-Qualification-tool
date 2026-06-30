@@ -1,0 +1,64 @@
+# Lead Qualification Tool for Sales / Solutions Engineers
+
+def calculate_lead_score(company_size, budget, urgency, technical_fit):
+    score = 0
+
+    if company_size.lower() == "enterprise":
+        score += 30
+    elif company_size.lower() == "medium":
+        score += 20
+    elif company_size.lower() == "small":
+        score += 10
+
+    if budget >= 100000:
+        score += 30
+    elif budget >= 50000:
+        score += 20
+    elif budget >= 10000:
+        score += 10
+
+    score += urgency * 2
+    score += technical_fit * 2
+
+    return score
+
+
+def recommend_plan(score):
+    if score >= 80:
+        return "Enterprise Plan"
+    elif score >= 50:
+        return "Professional Plan"
+    else:
+        return "Starter Plan"
+
+
+def recommend_next_step(score):
+    if score >= 80:
+        return "Schedule a technical demo and prepare a custom proposal."
+    elif score >= 50:
+        return "Offer a product walkthrough and discuss business requirements."
+    else:
+        return "Send product information and continue nurturing the lead."
+
+
+print(" Lead Qualification Tool")
+
+company_name = input("Company name: ")
+company_size = input("Company size (Small/Medium/Enterprise): ")
+industry = input("Industry: ")
+pain_point = input("Main business pain point: ")
+budget = int(input("Estimated budget ($): "))
+urgency = int(input("Urgency level (1-10): "))
+technical_fit = int(input("Technical fit (1-10): "))
+
+lead_score = calculate_lead_score(company_size, budget, urgency, technical_fit)
+recommended_plan = recommend_plan(lead_score)
+next_step = recommend_next_step(lead_score)
+
+print("\n--- Lead Qualification Summary ---")
+print(f"Company: {company_name}")
+print(f"Industry: {industry}")
+print(f"Pain Point: {pain_point}")
+print(f"Lead Score: {lead_score}/100")
+print(f"Recommended SaaS Plan: {recommended_plan}")
+print(f"Recommended Next Step: {next_step}")
